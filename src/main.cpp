@@ -133,11 +133,16 @@ private:
         bird.shape.setPosition(birdPosition);
 
         // ====== ====== ======
-        // TODO: (Q3)
+        // (Q3)
         //  - Check if the bird has exceeded the bounds of the screen
         //    (i.e., if it's no longer visible). If not, game should reset by clearing
         //    the tubes and restarting the game (setting the bird back to original initial position)
         // ====== ====== ======
+        if (birdPosition.y < 0 || birdPosition.y > WINDOW_HEIGHT) {
+            resetTubes();
+            bird.shape.setPosition(g_initialPosition);
+            bird.velocityY = INITIAL_BIRD_VELOCITY_Y;  // NOTE: don't know if this is required but gravity builds up it this isn't done
+        }
     }
 
     void updateTubes() {
