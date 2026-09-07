@@ -191,12 +191,13 @@ void handleInput(sf::Window& window, GameState& gameState, const ResourceManager
         }
 
         // ====== ====== ======
-        // TODO: (Q2)
+        // (Q2)
         //  implement jump logic (the key press should be space) and play jump sound fx
         // ====== ====== ======
         if (const auto *keyPressed{event->getIf<sf::Event::KeyPressed>()}) {
-            if (keyPressed->scancode == sf::Keyboard::Scan::Space) {
-                
+            if (keyPressed->code == sf::Keyboard::Key::Space) {
+                resources.jumpSound->play();
+                gameState.bird.velocityY = JUMP_SPEED;
             }
         }
     }
@@ -230,7 +231,7 @@ int main() {
         window.setKeyRepeatEnabled(false);
 
         // ====== ====== ======
-        // TODO: (Q2)
+        // (Q2)
         //  - load jump sound into resources.jumpSoundBuffer
         //      - if fails, print to stderr: "Warning: Could not load jump.wav"
         //  - initialize an sf::Sound from resources.jumpSoundBuffer in resources.jumpSound
