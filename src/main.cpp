@@ -24,9 +24,12 @@ const float GRAVITY = 0.3f;
 const float JUMP_SPEED = -5.0f;  // (set velocity of bird in the Y direction upon jump)
 const float TUBE_SPEED = 3.0f;
 
-// TODO: (Q1)
+// (Q1)
 //  Initial Bird Attributes
 //  Initialize the global (constant) variables for it here (radius, position, color)
+const sf::Vector2f g_initialPosition{100.0f, 400.0f};
+const float        g_initialRadius  {15.0f};
+const sf::Color    g_initialColor   {sf::Color::Yellow};
 
 // ResourceManager just owns all the resources/assets you'd want in your game.
 // In an engine, you'd probably want to make this more flexible than what we have here
@@ -67,20 +70,24 @@ struct TubePair {
 bool isTubeOffScreen(const TubePair& tube) { return tube.isOffScreen(); }
 
 struct BirdState {
-    BirdState() : velocityY{INITIAL_BIRD_VELOCITY_Y} {
+    BirdState() 
+        : velocityY{INITIAL_BIRD_VELOCITY_Y}, shape{g_initialRadius} {
         // ====== ====== ======
-        // TODO: (Q1)
+        // (Q1)
         //  - initialize the bird's shape (see below) to have
         //    appropriate size, color, and initial position.
         //  Note: consider using member initializer list to set the radius via ctor call.
         // ====== ====== ======
+        shape.setPosition(g_initialPosition);
+        shape.setFillColor(g_initialColor);
     }
 
     // ====== ====== ======
-    // TODO: (Q1)
+    // (Q1)
     //  - add a field for the bird's shape.
     // ====== ====== ======
     float velocityY;
+    sf::CircleShape shape{};
 };
 
 struct GameState {
@@ -199,8 +206,9 @@ void render(sf::RenderWindow& window, const GameState& gameState) {
         window.draw(tube.bottomTube);
     }
     // ====== ====== ======
-    // TODO: (Q1) Draw bird
+    // (Q1) Draw bird
     // ====== ====== ======
+    window.draw(gameState.bird.shape);
     window.display();
 }
 
