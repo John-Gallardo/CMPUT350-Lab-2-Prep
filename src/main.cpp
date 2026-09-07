@@ -122,12 +122,15 @@ private:
         bird.velocityY += GRAVITY;
 
         // ====== ====== ======
-        // TODO: (Q3)
+        // (Q3)
         //  - Update bird position according to the rule that bird's y-position
         //    should have bird's y-velocity added to it every frame (assume dt = 1).
         //    Should be equivalent to: bird.positionY += bird.velocityY;
         //  - Note: bird's x-coordinate will alway be exactly 100.f
         // ====== ====== ======
+        sf::Vector2f birdPosition{bird.shape.getPosition()};
+        birdPosition.y += bird.velocityY;
+        bird.shape.setPosition(birdPosition);
 
         // ====== ====== ======
         // TODO: (Q3)
