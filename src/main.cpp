@@ -166,19 +166,31 @@ private:
 
     void checkCollisions() {
         // ====== ====== ======
-        // TODO: (Q4)
+        // (Q4)
         //  Check for bird-tube collision using SFML Rect methods: getGlobalBounds() and
         //  findIntersection(). getGlobalBounds() will return a bounding box for the bird
         //  findIntersection() returns an sf::optional<sf::Rect>  (which can be
         //  implicitly converted to a boolean value) depending on whether a rectangle intersects
         //  with another
         // ====== ====== ======
+        // NOTE: I assume you only need to check intersection with the closest tube pair in front?
+        sf::FloatRect topBounds   {tubes[0].topTube.getGlobalBounds()};
+        sf::FloatRect bottomBounds{tubes[0].bottomTube.getGlobalBounds()};
+        sf::FloatRect birdBounds  {bird.shape.getGlobalBounds()};
+        
+        std::optional<sf::FloatRect> topResult   {topBounds.findIntersection(birdBounds)};
+        std::optional<sf::FloatRect> bottomResult{bottomBounds.findIntersection(birdBounds)};
 
         // ====== ====== ======
-        // TODO: (Q4)
+        // (Q4)
         //  If bird hits tube, game should reset by resetting the tubes and resetting the bird
         //  to its initial state (i.e., restarting the game)
         // ====== ====== ======
+        if (topResult || bottomResult) {
+            resetTubes();
+            bird.shape.setPosition(g_initialPosition);
+            bird.velocityY = INITIAL_BIRD_VELOCITY_Y;
+        }
     }
 
 public:
